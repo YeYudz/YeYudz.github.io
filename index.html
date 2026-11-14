@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YeYudz · Unity 开发作品集</title>
+<meta name="description" content="Unity 开发 / 独立完成 3 个完整项目：2D Roguelite 割草动作游戏（含画中画炒菜与音游 BOSS）、HybridCLR 热更卡牌 RPG、Roguelike 射击 Demo。C# / Git / 性能优化。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="YeYudz · Unity 开发作品集">
+<meta property="og:description" content="独立完成 3 个 Unity 项目：割草动作游戏、热更卡牌 RPG、Roguelike 射击 Demo。">
+<meta property="og:image" content="https://raw.githubusercontent.com/YeYudz/GrabTheIngredients/main/docs/screenshots/gameplay.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+<style>
+  :root {
+    --bg: #f6f7fb; --card: #ffffff; --ink: #1f2430; --muted: #5b6472;
+    --accent: #4a6cf7; --accent2: #7b5cff; --border: #e5e8f0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", -apple-system, "Segoe UI", sans-serif;
+    background: var(--bg); color: var(--ink); line-height: 1.7;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 48px 20px 64px; }
+
+  header { text-align: center; margin-bottom: 44px; }
+  header h1 { font-size: 30px; letter-spacing: 1px; }
+  header .tagline {
+    margin-top: 12px; font-size: 17px; color: var(--muted);
+  }
+  header .tagline strong { color: var(--ink); }
+  .badges { margin-top: 16px; }
+  .badge {
+    display: inline-block; background: #eef1ff; color: var(--accent);
+    border-radius: 999px; padding: 4px 14px; font-size: 13px; margin: 4px 4px;
+  }
+
+  h2 { font-size: 20px; margin: 40px 0 18px; padding-left: 12px; border-left: 4px solid var(--accent); }
+
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    overflow: hidden; margin-bottom: 22px;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(31,36,48,.10); }
+  .card .head {
+    padding: 18px 22px; color: #fff; display: flex; align-items: center; gap: 12px;
+  }
+  .card .head .emoji { font-size: 26px; }
+  .card .head .title { font-size: 18px; font-weight: 700; }
+  .card .head .sub { font-size: 13px; opacity: .85; margin-left: auto; text-align: right; }
+  .card .body { padding: 18px 22px 20px; }
+  .card .body p { color: var(--muted); font-size: 15px; }
+  .card .highlights { margin: 10px 0 14px; padding-left: 20px; color: var(--ink); font-size: 14.5px; }
+  .card .highlights li { margin: 4px 0; }
+  .card .links a {
+    display: inline-block; margin-right: 10px; margin-top: 4px;
+    font-size: 14px; text-decoration: none; color: var(--accent);
+    border: 1px solid var(--border); border-radius: 8px; padding: 6px 14px;
+  }
+  .card .links a:hover { background: #eef1ff; }
+  .card .shot { width: 100%; display: block; object-fit: cover; max-height: 260px; }
+  .shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; background: var(--border); }
+  .shots.two { grid-template-columns: repeat(2, 1fr); }
+  .shots a { display: block; overflow: hidden; }
+  .shots img { width: 100%; height: 134px; object-fit: cover; display: block; transition: transform .25s ease; }
+  .shots a:hover img { transform: scale(1.04); }
+  .cap { font-size: 12.5px; color: var(--muted); padding: 8px 22px 0; }
+  .g1 { background: linear-gradient(120deg, #4a6cf7, #7b5cff); }
+  .g2 { background: linear-gradient(120deg, #0ea5a4, #22c58b); }
+  .g3 { background: linear-gradient(120deg, #64748b, #94a3b8); }
+
+  .connect { display: flex; flex-wrap: wrap; gap: 12px; }
+  .connect a {
+    flex: 1 1 220px; text-align: center; text-decoration: none;
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px; color: var(--ink); font-weight: 600;
+  }
+  .connect a span { display: block; font-weight: 400; color: var(--muted); font-size: 13px; margin-top: 4px; }
+  .connect a:hover { border-color: var(--accent); }
+
+  footer { text-align: center; color: var(--muted); font-size: 13px; margin-top: 48px; }
+  @media (max-width: 560px) {
+    header h1 { font-size: 24px; }
+    .card .head .sub { display: none; }
+    .wrap { padding: 32px 14px 48px; }
+    .shots img { height: 96px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>YeYudz</h1>
+    <div class="tagline">
+      <strong>Unity 开发 · 独立完成 3 个完整项目 · C# / Git</strong><br>
+      从玩法设计、系统架构、全部代码到数值平衡，一个人走完全流程。<br>
+      关注工程化：数据驱动、事件解耦、版本化存档、Profiler 实测优化。
+    </div>
+    <div class="badges">
+      <span class="badge">Unity 2022.3 LTS</span>
+      <span class="badge">C#</span>
+      <span class="badge">HybridCLR 热更新</span>
+      <span class="badge">YooAsset</span>
+      <span class="badge">性能优化</span>
+    </div>
+  </header>
+
+  <h2>项目</h2>
+
+  <div class="card">
+    <div class="head g1">
+      <span class="emoji">🎮</span>
+      <span class="title">GrabTheIngredients</span>
+      <span class="sub">独立开发 · 155 脚本 / 3.1 万行 C#</span>
+    </div>
+    <div class="shots">
+      <a href="https://raw.githubusercontent.com/YeYudz/GrabTheIngredients/main/docs/screenshots/gameplay.png" target="_blank"><img src="https://raw.githubusercontent.com/YeYudz/GrabTheIngredients/main/docs/screenshots/gameplay.png" alt="波次割草战斗" loading="lazy" onerror="this.closest('.shots').style.display='none'"></a>
+      <a href="https://raw.githubusercontent.com/YeYudz/GrabTheIngredients/main/docs/screenshots/cooking.png" target="_blank"><img src="https://raw.githubusercontent.com/YeYudz/GrabTheIngredients/main/docs/screenshots/cooking.png" alt="画中画炒菜小游戏" loading="lazy" onerror="this.closest('.shots').style.display='none'"></a>
+      <a href="https://raw.githubusercontent.com/YeYudz/GrabTheIngredients/main/docs/screenshots/rhythm-boss.png" target="_blank"><img src="https://raw.githubusercontent.com/YeYudz/GrabTheIngredients/main/docs/screenshots/rhythm-boss.png" alt="音游 BOSS 战" loading="lazy" onerror="this.closest('.shots').style.display='none'"></a>
+    </div>
+    <div class="cap">割草战斗 · 画中画炒菜 · 音游 BOSS 战</div>
+    <div class="body">
+      <p>波次割草 × 画中画炒菜 × 音游 BOSS 的 2D Roguelite 动作游戏：一边砍怪一边颠勺，打空 BOSS 血条还要过音游关。</p>
+      <ul class="highlights">
+        <li>FSM 全局状态机 + 40+ 强类型事件，模块间零直接引用</li>
+        <li>版本化断点存档：全量快照 + 4 个迁移器 + 原子写，强杀进程最多丢 1 波</li>
+        <li>Profiler 实测优化：<b>SetPass 297 → 13（↓95%）、Batches 329 → 45（↓86%）</b>，合批率 ×5.7，GC 尖峰密集→稀疏</li>
+      </ul>
+      <div class="links">
+        <a href="https://github.com/YeYudz/GrabTheIngredients" target="_blank">GitHub 仓库</a>
+        <a href="https://github.com/YeYudz/GrabTheIngredients/blob/main/PerformanceNotes.md" target="_blank">性能优化实测记录</a>
+        <a href="https://b23.tv/4fMksO2" target="_blank">演示视频</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="head g2">
+      <span class="emoji">🃏</span>
+      <span class="title">DemOo</span>
+      <span class="sub">独立开发 · 卡牌 RPG Demo</span>
+    </div>
+    <div class="shots">
+      <a href="https://raw.githubusercontent.com/YeYudz/DemOo/main/docs/screenshots/battle.png" target="_blank"><img src="https://raw.githubusercontent.com/YeYudz/DemOo/main/docs/screenshots/battle.png" alt="卡牌战斗界面" loading="lazy" onerror="this.closest('.shots').style.display='none'"></a>
+      <a href="https://raw.githubusercontent.com/YeYudz/DemOo/main/docs/screenshots/relic.png" target="_blank"><img src="https://raw.githubusercontent.com/YeYudz/DemOo/main/docs/screenshots/relic.png" alt="遗器养成界面" loading="lazy" onerror="this.closest('.shots').style.display='none'"></a>
+      <a href="https://raw.githubusercontent.com/YeYudz/DemOo/main/docs/screenshots/hotupdate.png" target="_blank"><img src="https://raw.githubusercontent.com/YeYudz/DemOo/main/docs/screenshots/hotupdate.png" alt="热更加载界面" loading="lazy" onerror="this.closest('.shots').style.display='none'"></a>
+    </div>
+    <div class="cap">卡牌战斗 · 遗器养成 · 热更加载</div>
+    <div class="body">
+      <p>卡牌战斗 + 完整养成闭环（抽卡/背包/遗器/商店/副本）的回合制 Demo。真正的卖点：<b>改代码不用重新装包</b>。</p>
+      <ul class="highlights">
+        <li>HybridCLR 热更新：GameLogic 热更程序集与 AOT 主程序集分离，改逻辑一键热更生效</li>
+        <li>YooAsset 资源管线：多版本 manifest 自动同步脚本化</li>
+        <li>养成数值全 JSON 配置驱动，属性成长线性插值自动生成</li>
+      </ul>
+      <div class="links">
+        <a href="https://github.com/YeYudz/DemOo" target="_blank">GitHub 仓库</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="head g3">
+      <span class="emoji">🔫</span>
+      <span class="title">RSGD</span>
+      <span class="sub">独立开发 · 已归档历史项目</span>
+    </div>
+    <div class="shots two">
+      <a href="https://raw.githubusercontent.com/YeYudz/RSGD/main/docs/screenshots/battle.png" target="_blank"><img src="https://raw.githubusercontent.com/YeYudz/RSGD/main/docs/screenshots/battle.png" alt="战斗场景" loading="lazy" onerror="this.closest('.shots').style.display='none'"></a>
+      <a href="https://raw.githubusercontent.com/YeYudz/RSGD/main/docs/screenshots/select.png" target="_blank"><img src="https://raw.githubusercontent.com/YeYudz/RSGD/main/docs/screenshots/select.png" alt="角色选择界面" loading="lazy" onerror="this.closest('.shots').style.display='none'"></a>
+    </div>
+    <div class="cap">战斗场景 · 角色选择</div>
+    <div class="body">
+      <p>节点式 Roguelike 射击 Demo：一局的关卡序列由「节点」编排（战斗 / 商店 / 休息 / BOSS，类似波次配置）+ 4 角色 E/Q 双技能。架构练手之作，自建可复用基础框架。</p>
+      <ul class="highlights">
+        <li>自研泛型事件中心（观察者模式）与对象池，战斗中高频对象零 Instantiate</li>
+        <li>E/Q 技能倍率乘法叠加，数值不膨胀；全 JSON 配置驱动</li>
+      </ul>
+      <div class="links">
+        <a href="https://github.com/YeYudz/RSGD" target="_blank">GitHub 仓库</a>
+      </div>
+    </div>
+  </div>
+
+  <h2>演示</h2>
+  <div class="connect">
+    <a href="https://b23.tv/4fMksO2" target="_blank">🎬 B 站演示视频<span>GrabTheIngredients 实机试玩</span></a>
+  </div>
+
+  <h2>联系我</h2>
+  <div class="connect">
+    <a href="https://github.com/YeYudz" target="_blank">GitHub<span>github.com/YeYudz</span></a>
+    <a href="https://space.bilibili.com/3546383049033926" target="_blank">B 站<span>开发日志与演示视频</span></a>
+    <a href="mailto:2874023193@qq.com">邮箱<span>2874023193@qq.com</span></a>
+  </div>
+
+  <footer>© 2026 YeYudz · 本页面由 GitHub Pages 托管</footer>
+</div>
+</body>
+</html>
